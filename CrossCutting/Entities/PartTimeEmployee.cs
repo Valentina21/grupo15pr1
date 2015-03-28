@@ -9,5 +9,6 @@ namespace Shared.Entities
     public class PartTimeEmployee : Employee
     {
         public double HourlyDate { get; set; }
+       
     }
 }
