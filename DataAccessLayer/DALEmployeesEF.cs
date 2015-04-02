@@ -11,27 +11,48 @@ namespace DataAccessLayer
     {
         public void AddEmployee(Employee emp)
         {
-            throw new NotImplementedException();
+            using (var context = new InheritanceMappingContext())
+            {
+                context.Employees.Add(emp);
+
+                context.SaveChanges();
+            }
         }
 
         public void DeleteEmployee(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new InheritanceMappingContext())
+            {
+                context.Employees.Remove(this.GetEmployee(id));
+
+                context.SaveChanges();
+            }
         }
 
         public void UpdateEmployee(Employee emp)
         {
-            throw new NotImplementedException();
+            using (var context = new InheritanceMappingContext())
+            {
+                Employee aux = this.GetEmployee(emp.Id);
+                aux = emp;
+                context.SaveChanges();
+            }
         }
 
         public List<Employee> GetAllEmployees()
         {
-            throw new NotImplementedException();
+            using (var context = new InheritanceMappingContext())
+            {
+                return (from emp in context.Employees select emp).ToList();
+            }
         }
 
         public Employee GetEmployee(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new InheritanceMappingContext())
+            {
+                return (from emp in context.Employees where emp.Id == id select emp).First();
+            }
         }
 
         public List<Employee> SearchEmployees(string searchTerm)
