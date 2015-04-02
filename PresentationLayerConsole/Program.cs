@@ -22,7 +22,8 @@ namespace PresentationLayerConsole
             //...
             //...
 
-            using (var context = new InheritanceMappingContext())
+            //Descomentar solo la primera vez. Esto genera la base de datos e inserta un elemento
+           /* using (var context = new InheritanceMappingContext())
             {
                 FullTimeEmployee full = new FullTimeEmployee()
                 {
@@ -34,28 +35,10 @@ namespace PresentationLayerConsole
                 context.Employees.Add(full);
 
                 context.SaveChanges();
-            }
+            }*/
         }
     }
 
-    public class InheritanceMappingContext : DbContext
-    {
-        public DbSet<Employee> Employees { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<FullTimeEmployee>().Map(m =>
-            {
-                m.MapInheritedProperties();
-                m.ToTable("FULL_TIME_EMP");
-            });
-
-            modelBuilder.Entity<PartTimeEmployee>().Map(m =>
-            {
-                m.MapInheritedProperties();
-                m.ToTable("PART_TIME_EMP");
-            });
-        }
-    }
+    
 }
 
