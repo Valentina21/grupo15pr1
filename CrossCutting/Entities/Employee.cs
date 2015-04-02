@@ -20,4 +20,24 @@ namespace Shared.Entities
         [Column("START_DATE")]
         public DateTime StartDate { get; set; }
     }
+
+    public class InheritanceMappingContext : DbContext
+    {
+        public DbSet<Employee> Employees { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<FullTimeEmployee>().Map(m =>
+            {
+                m.MapInheritedProperties();
+                m.ToTable("FULL_TIME_EMP");
+            });
+
+            modelBuilder.Entity<PartTimeEmployee>().Map(m =>
+            {
+                m.MapInheritedProperties();
+                m.ToTable("PART_TIME_EMP");
+            });
+        }
+    }
 }
