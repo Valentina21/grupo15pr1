@@ -19,11 +19,21 @@ namespace DataAccessLayer
             }
         }
 
+        public int GetLastIdEmployee()
+        {
+            using (var context = new InheritanceMappingContext())
+            {
+                return context.Employees.Max(p => p.Id);
+            }
+        }
+
         public void DeleteEmployee(int id)
         {
             using (var context = new InheritanceMappingContext())
             {
-                context.Employees.Remove(this.GetEmployee(id));
+                Employee emp = this.GetEmployee(id);
+                context.Employees.Attach(emp);
+                context.Employees.Remove(emp);
 
                 context.SaveChanges();
             }
@@ -33,8 +43,7 @@ namespace DataAccessLayer
         {
             using (var context = new InheritanceMappingContext())
             {
-                Employee aux = this.GetEmployee(emp.Id);
-                aux = emp;
+                context.Employees.Attach(emp);
                 context.SaveChanges();
             }
         }
@@ -51,7 +60,15 @@ namespace DataAccessLayer
         {
             using (var context = new InheritanceMappingContext())
             {
-                return (from emp in context.Employees where emp.Id == id select emp).First();
+                if ((from emp in context.Employees where emp.Id == id select emp).Count() > 0)
+                {
+                    Employee emple = (from emp in context.Employees where emp.Id == id select emp).First();
+                    return emple;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 

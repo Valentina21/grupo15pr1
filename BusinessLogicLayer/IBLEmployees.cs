@@ -22,5 +22,7 @@ namespace BusinessLogicLayer
         List<Employee> SearchEmployees(string searchTerm);
 
         double CalcPartTimeEmployeeSalary(int idEmployee, int hours);
+
+        int GetLastIdEmployee();
     }
 }

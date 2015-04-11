@@ -57,6 +57,14 @@ namespace DataAccessLayer
             }
         }
 
+        public int GetLastIdEmployee()
+        {
+            using (var context = new InheritanceMappingContext())
+            {
+                return context.Employees.Max(p=>p.Id);
+            }
+        }
+
         public Employee GetEmployee(int id)
         {
             using (var context = new InheritanceMappingContext())

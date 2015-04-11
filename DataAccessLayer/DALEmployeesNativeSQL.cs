@@ -29,6 +29,11 @@ namespace DataAccessLayer
             throw new NotImplementedException();
         }
 
+        public int GetLastIdEmployee()
+        {
+            throw new NotImplementedException();
+        }
+
         public Employee GetEmployee(int id)
         {
             throw new NotImplementedException();

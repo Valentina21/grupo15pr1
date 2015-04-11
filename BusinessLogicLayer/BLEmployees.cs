@@ -57,6 +57,11 @@ namespace BusinessLogicLayer
            return _dal.SearchEmployees(searchTerm) ;
         }
 
+        public int GetLastIdEmployee()
+        {
+            return _dal.GetLastIdEmployee();
+        }
+
         public double CalcPartTimeEmployeeSalary(int idEmployee, int hours)
         {
             Employee emp = _dal.GetEmployee(idEmployee);
