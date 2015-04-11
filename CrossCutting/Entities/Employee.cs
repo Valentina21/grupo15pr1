@@ -19,6 +19,7 @@ namespace Shared.Entities
         public String Name { get; set; }
         [Column("START_DATE")]
         public DateTime StartDate { get; set; }
+       
     }
 
     public class InheritanceMappingContext : DbContext

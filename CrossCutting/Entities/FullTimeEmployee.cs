@@ -12,5 +12,7 @@ namespace Shared.Entities
     {
         [Column("SALARY")]
         public int Salary{ get; set; }
+
+        
     }
 }

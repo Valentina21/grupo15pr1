@@ -1,16 +1,18 @@
 ﻿using DataAccessLayer;
 using Shared.Entities;
+using Shared.Exception; //PRUEBA REPO NACHO
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks; //PRUEBA REPO NACHO
+using System.Threading.Tasks;
 
 namespace BusinessLogicLayer
 {
     public class BLEmployees : IBLEmployees
     {
        private IDALEmployees _dal;
+
 
         public BLEmployees(IDALEmployees dal)
         {
@@ -19,17 +21,17 @@ namespace BusinessLogicLayer
 
         public void AddEmployee(Employee emp)
         {
-            throw new NotImplementedException();
+            _dal.AddEmployee(emp) ;
         }
 
         public void DeleteEmployee(int id)
         {
-            throw new NotImplementedException();
+            _dal.DeleteEmployee(id);
         }
 
         public void UpdateEmployee(Employee emp)
         {
-            throw new NotImplementedException();
+            _dal.UpdateEmployee(emp);
         }
 
         public List<Employee> GetAllEmployees()
@@ -39,17 +41,41 @@ namespace BusinessLogicLayer
 
         public Employee GetEmployee(int id)
         {
-            throw new NotImplementedException();
+            Employee emp = _dal.GetEmployee(id);
+            if (emp != null)
+            {
+                return emp;
+            }
+            else
+            {
+                throw new EmployeeNotExist("Empleado no encontrado");
+            }
         }
 
         public List<Employee> SearchEmployees(string searchTerm)
         {
-            throw new NotImplementedException();
+           return _dal.SearchEmployees(searchTerm) ;
         }
 
         public double CalcPartTimeEmployeeSalary(int idEmployee, int hours)
         {
-            throw new NotImplementedException();
+            Employee emp = _dal.GetEmployee(idEmployee);
+            if (emp != null)
+            {
+                if (emp is PartTimeEmployee)
+                {
+                    PartTimeEmployee empPT = (PartTimeEmployee)emp;
+                    return empPT.HourlyDate * hours;
+                }
+                else
+                {
+                    throw new EmployeeDifferentType("El Empleado no es Part Time");
+                }
+            }
+            else
+            {
+                throw new EmployeeNotExist("Empleado no encontrado");
+            }
         }
     }
 }

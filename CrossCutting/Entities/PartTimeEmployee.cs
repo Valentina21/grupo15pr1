@@ -12,6 +12,5 @@ namespace Shared.Entities
     {
         [Column("RATE")]
         public double HourlyDate { get; set; }
-       
     }
 }

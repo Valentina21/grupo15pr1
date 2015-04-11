@@ -50,12 +50,12 @@
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Entities\FullTimeEmployee.cs" />
     <Compile Include="Entities\PartTimeEmployee.cs" />
+    <Compile Include="Enums\TiposEmpleados.cs" />
+    <Compile Include="Exception\Exceptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Caching\" />
-    <Folder Include="Enums\" />
-    <Folder Include="Exception\" />
     <Folder Include="Logging\" />
     <Folder Include="Security\" />
   </ItemGroup>
