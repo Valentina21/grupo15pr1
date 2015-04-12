@@ -9,6 +9,7 @@ namespace DataAccessLayer
 {
     public class DALEmployeesEF : IDALEmployees
     {
+       
         public void AddEmployee(Employee emp)
         {
             using (var context = new InheritanceMappingContext())
