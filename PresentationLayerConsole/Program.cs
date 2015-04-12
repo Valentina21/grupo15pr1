@@ -147,7 +147,7 @@ namespace PresentationLayerConsole
                                 Console.WriteLine("Cantidad de parametros incorrectos.");
                             }
                             break;
-
+                                                    
                         case "exit":
                             quitNow = true;
                             break;

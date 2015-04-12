@@ -74,7 +74,10 @@ namespace DataAccessLayer
 
         public List<Employee> SearchEmployees(string searchTerm)
         {
-            throw new NotImplementedException();
+            using (var context = new InheritanceMappingContext())
+            {
+                return (from emp in context.Employees where emp.Name == searchTerm select emp).ToList();
+            }
         }
     }
 }
