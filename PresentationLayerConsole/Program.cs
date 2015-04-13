@@ -8,6 +8,7 @@ using BusinessLogicLayer;
 using System.Data.Entity;
 using Shared.Exception;
 using Microsoft.Practices.Unity;
+using Shared.Logging;
 
 //Probando si anda
 //prueba2
@@ -15,6 +16,27 @@ namespace PresentationLayerConsole
 {
     class Program
     {
+        private static void WriteEmployee(Employee emp)
+        {
+            Console.WriteLine(" ");
+            Console.WriteLine("FICHA EMPLEADO");
+            Console.WriteLine("-------------------");
+            Console.WriteLine(" ");
+            Console.WriteLine("NOMBRE:" + emp.Name);
+            Console.WriteLine("FECHA INGRESO:" + emp.StartDate.ToShortDateString());
+            if (emp is PartTimeEmployee)
+            {
+                Console.WriteLine("TIPO:PART TIME");
+                Console.WriteLine("VALOR HORA:" + ((PartTimeEmployee)emp).HourlyDate.ToString());
+            }
+            else
+            {
+                Console.WriteLine("TIPO:FULL TIME");
+                Console.WriteLine("SALARIO:" + ((FullTimeEmployee)emp).Salary.ToString());
+            }
+            Console.WriteLine(" ");
+        }
+
         static void Main(string[] args)
         {
 
@@ -32,6 +54,7 @@ namespace PresentationLayerConsole
                 Console.WriteLine("Delete {Id: int}");
                 Console.WriteLine("Update {Id: int} {Nombre:string} {Fecha Comienzo: string dd/mm/aaaa} {Si F Salario: int ? Valor Hora: double} ");
                 Console.WriteLine("Get {Id: int}");
+                Console.WriteLine("Search {searchTerm: string}");
                 Console.WriteLine("");
 
                 String command;
@@ -127,29 +150,24 @@ namespace PresentationLayerConsole
                                     Console.WriteLine("Cantidad de parametros incorrectos.");
                                 }
                                 break;
-
                             case "get":
                                 if (readline.Length == 2)
                                 {
                                     string id = readline[1];
                                     Employee emp = blHandler.GetEmployee(int.Parse(id));
-                                    Console.WriteLine(" ");
-                                    Console.WriteLine("FICHA EMPLEADO");
-                                    Console.WriteLine("-------------------");
-                                    Console.WriteLine(" ");
-                                    Console.WriteLine("NOMBRE:" + emp.Name);
-                                    Console.WriteLine("FECHA INGRESO:" + emp.StartDate.ToShortDateString());
-                                    if (emp is PartTimeEmployee)
-                                    {
-                                        Console.WriteLine("TIPO:PART TIME");
-                                        Console.WriteLine("VALOR HORA:" + ((PartTimeEmployee)emp).HourlyDate.ToString());
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("TIPO:FULL TIME");
-                                        Console.WriteLine("SALARIO:" + ((FullTimeEmployee)emp).Salary.ToString());
-                                    }
-                                    Console.WriteLine(" ");
+                                    WriteEmployee(emp);
+                                }
+                                break;
+                            case "search":
+                                if (readline.Length == 2)
+                                {
+                                    string term = readline[1];
+                                    List<Employee> emps = blHandler.SearchEmployees(term);
+
+                                   foreach(Employee emp in emps)
+                                   {
+                                       WriteEmployee(emp);
+                                   }
                                 }
                                 else
                                 {
@@ -177,6 +195,7 @@ namespace PresentationLayerConsole
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
+                        LogMethods.AddLog(ex.Message, LogsTypes.Warning);
                     }
                 }
 
