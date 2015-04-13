@@ -77,7 +77,7 @@ namespace DataAccessLayer
         {
             using (var context = new InheritanceMappingContext())
             {
-                return (from emp in context.Employees where emp.Name == searchTerm select emp).ToList();
+                return (from emp in context.Employees where emp.Name.ToLower().Contains(searchTerm.ToLower()) select emp).ToList();
             }
         }
     }

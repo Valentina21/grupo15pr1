@@ -69,13 +69,20 @@ namespace DataAccessLayer
         {
             using (var context = new InheritanceMappingContext())
             {
-                return context.Employees.First(p => p.Id == id);
+                if (context.Employees.Where(p => p.Id == id).Count() > 0)
+                {
+                    return context.Employees.First(p => p.Id == id);
+                }
+                return null;
             }
         }
 
         public List<Employee> SearchEmployees(string searchTerm)
         {
-            throw new NotImplementedException();
+            using (var context = new InheritanceMappingContext())
+            {
+                return context.Employees.Where(p => p.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
+            }
         }
     }
 }
