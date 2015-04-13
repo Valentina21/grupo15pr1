@@ -1,1 +1,1 @@
-﻿
+﻿public enum LogsTypes { Warning, Error, Information};
