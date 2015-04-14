@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 using BusinessLogicLayer;
 using Shared.Entities;
 using System.Collections.Generic;
-using Microsoft.Practices.Unity.Configuration;
+using Microsoft.Practices.Unity;
 
 
 namespace Test

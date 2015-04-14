@@ -52,11 +52,11 @@
     <Compile Include="Entities\PartTimeEmployee.cs" />
     <Compile Include="Enums\TiposEmpleados.cs" />
     <Compile Include="Exception\Exceptions.cs" />
+    <Compile Include="Logging\LogMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Caching\" />
-    <Folder Include="Logging\" />
     <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
